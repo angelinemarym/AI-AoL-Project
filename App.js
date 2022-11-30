@@ -21,12 +21,11 @@ import {ALAN_AI_SDK_KEY} from './src/utils/constants';
 const App: () => Node = () => {
   const {AlanManager, AlanEventEmitter} = NativeModules;
   const alanEventEmitter = new NativeEventEmitter(AlanEventEmitter);
-  const subscription = alanEventEmitter.addListener('command', data => {
-    console.log(`got command event ${JSON.stringify(data)}`);
-  });
 
   useEffect(() => {
-    subscription.remove();
+    alanEventEmitter.addListener('command', data => {
+      console.log(`got command event ${JSON.stringify(data)}`);
+    });
   }, []);
 
   return (
