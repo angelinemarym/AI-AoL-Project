@@ -10,6 +10,7 @@ import IconSearch from './ic-search';
 import IconSideMenu from './ic-side-menu';
 import IconStar from './ic-star';
 import IconClose from './ic-close';
+import IconBack from './ic-back';
 
 export {
   IconCart,
@@ -24,4 +25,5 @@ export {
   IconSideMenu,
   IconStar,
   IconClose,
+  IconBack,
 };
