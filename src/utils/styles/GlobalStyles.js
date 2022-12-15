@@ -21,6 +21,10 @@ const GlobalStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  verticalCenter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default GlobalStyles;
