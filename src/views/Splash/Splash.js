@@ -5,7 +5,7 @@ import {useEffect} from 'react';
 
 const Splash = ({navigation}) => {
   useEffect(() => {
-    setTimeout(() => navigation.replace('Home'), 3000);
+    setTimeout(() => navigation.replace('MainApp'), 3000);
   }, [navigation]);
 
   return (
@@ -16,7 +16,7 @@ const Splash = ({navigation}) => {
         style={styles.background}>
         <View style={styles.transparentBackground} />
         <Text style={styles.titleText}>FOOD</Text>
-        <Text style={styles.titleText}>EXPRESS</Text>
+        <Text style={styles.titleText}>DELIVERY</Text>
       </ImageBackground>
     </>
   );
