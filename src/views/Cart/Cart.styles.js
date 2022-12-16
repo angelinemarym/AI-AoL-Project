@@ -3,7 +3,6 @@ import colors from '../../utils/colors';
 
 export default StyleSheet.create({
   footer: {
-    position: 'absolute',
     bottom: 0,
     padding: 16,
     width: '100%',

@@ -8,8 +8,10 @@ import {
   IconHome,
   IconProfile,
 } from '../../assets/icons';
+import {useSelector} from 'react-redux';
 
 const TabItem = ({title, active, onPress, onLongPress}) => {
+  const cart = useSelector(state => state.reducerOrder.cart);
   const Icon = () => {
     if (title === 'Home') {
       return <IconHome fill={active ? colors.bluePurple : colors.gray} />;
@@ -31,6 +33,19 @@ const TabItem = ({title, active, onPress, onLongPress}) => {
             justifyContent: 'center',
           }}>
           <IconCart fill={active ? colors.bluePurple : colors.gray} />
+          {cart.length > 0 && (
+            <View
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: 20 / 2,
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                backgroundColor: colors.red,
+              }}
+            />
+          )}
         </View>
       );
     }

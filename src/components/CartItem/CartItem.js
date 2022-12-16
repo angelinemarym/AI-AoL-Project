@@ -6,7 +6,7 @@ import colors from '../../utils/colors';
 import {fontWeight} from '../../utils/text';
 import {IconClose} from '../../assets/icons';
 
-const CartItem = ({quantity, name, price, restaurantName}) => {
+const CartItem = ({quantity, name, price, restaurantName, onPress}) => {
   return (
     <View style={styles.wrapper}>
       <View style={[GlobalStyles.horizontalCenter, styles.titleWrapper]}>
@@ -15,11 +15,11 @@ const CartItem = ({quantity, name, price, restaurantName}) => {
             GlobalStyles.subTitleText,
             {color: colors.gray59, marginRight: 10},
           ]}>
-          1x
+          {quantity}x
         </Text>
         <Text
           style={[GlobalStyles.subTitleText, {color: colors.gray59, flex: 1}]}>
-          Menu Name
+          {name}
         </Text>
         <Text
           style={[
@@ -30,15 +30,15 @@ const CartItem = ({quantity, name, price, restaurantName}) => {
               marginRight: 10,
             },
           ]}>
-          LKR 999.00
+          LKR {price * quantity}
         </Text>
-        <TouchableOpacity style={styles.closeWrapper}>
+        <TouchableOpacity style={styles.closeWrapper} onPress={onPress}>
           <IconClose />
         </TouchableOpacity>
       </View>
       <Text
         style={[GlobalStyles.bodyText, {color: colors.gray6C, marginLeft: 26}]}>
-        Restaurant Name
+        {restaurantName}
       </Text>
     </View>
   );

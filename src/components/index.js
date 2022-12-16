@@ -6,6 +6,7 @@ import MenuItem from './MenuItem/MenuItem';
 import Header from './Header/Header';
 import CartItem from './CartItem/CartItem';
 import Button from './Button/Button';
+import MenuListItem from './MenuListItem/MenuListItem';
 
 export {
   CustomTabBar,
@@ -16,4 +17,5 @@ export {
   Header,
   CartItem,
   Button,
+  MenuListItem,
 };
