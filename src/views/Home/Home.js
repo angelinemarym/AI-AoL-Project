@@ -8,7 +8,7 @@ import {useState} from 'react';
 import menuTypes from '../../assets/data/MenuTypes.data';
 import {fastFoodOffers, popularFood} from '../../assets/data/Food.data';
 
-const Home = () => {
+const Home = ({navigation}) => {
   const [text, onChangeText] = useState('');
   return (
     <ScrollView
@@ -32,7 +32,14 @@ const Home = () => {
       <View style={styles.gap} />
       <View style={[GlobalStyles.horizontalCenter, styles.foodSection]}>
         <Text style={GlobalStyles.titleText}>Popular Food</Text>
-        <ViewAll />
+        <ViewAll
+          onPress={() =>
+            navigation.navigate('MenuList', {
+              data: popularFood,
+              title: 'Popular Food',
+            })
+          }
+        />
       </View>
       <FlatList
         horizontal
@@ -43,7 +50,14 @@ const Home = () => {
       <View style={styles.gap} />
       <View style={[GlobalStyles.horizontalCenter, styles.foodSection]}>
         <Text style={GlobalStyles.titleText}>Fast Food Offers</Text>
-        <ViewAll />
+        <ViewAll
+          onPress={() =>
+            navigation.navigate('MenuList', {
+              data: fastFoodOffers,
+              title: 'Fast Food',
+            })
+          }
+        />
       </View>
       <FlatList
         horizontal

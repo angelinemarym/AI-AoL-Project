@@ -11,6 +11,7 @@ import IconSideMenu from './ic-side-menu';
 import IconStar from './ic-star';
 import IconClose from './ic-close';
 import IconBack from './ic-back';
+import IconCheck from './ic-check';
 
 export {
   IconCart,
@@ -26,4 +27,5 @@ export {
   IconStar,
   IconClose,
   IconBack,
+  IconCheck,
 };

@@ -12,9 +12,19 @@ const GlobalStyles = StyleSheet.create({
     fontSize: textSize.normal,
     fontWeight: fontWeight.normal,
   },
+  semiBodyText: {
+    color: colors.black,
+    fontSize: textSize.semiNormal,
+    fontWeight: fontWeight.normal,
+  },
   titleText: {
     color: colors.white,
     fontSize: textSize.title,
+    fontWeight: fontWeight.bold,
+  },
+  subTitleText: {
+    color: colors.black,
+    fontSize: textSize.subTitle,
     fontWeight: fontWeight.bold,
   },
   horizontalCenter: {
