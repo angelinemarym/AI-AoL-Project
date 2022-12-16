@@ -6,4 +6,8 @@ export default {
   darkBlue: '#070D23',
   lightPurple: '#C5C5FF',
   gray: '#6D6D6D',
+  gray59: '#595959',
+  gray6C: '#6C6C6C',
+  grayCE: '#CECECE',
+  red: '#FF4D4D',
 };

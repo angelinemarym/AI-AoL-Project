@@ -2,7 +2,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import colors from '../utils/colors';
-import {Cart, Chat, Favorite, Home, Profile, Splash} from '../views';
+import {Cart, Chat, Favorite, Home, Profile, Splash, MenuList} from '../views';
 import {
   IconCart,
   IconChat,
@@ -78,6 +78,11 @@ const Router = () => {
         <Stack.Screen
           name="MainApp"
           component={MainApp}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="MenuList"
+          component={MenuList}
           options={{headerShown: false}}
         />
       </Stack.Navigator>
