@@ -10,8 +10,16 @@ import {
   IconHome,
   IconProfile,
 } from '../assets/icons';
-import {TouchableOpacity, View} from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  NativeEventEmitter,
+  NativeModules,
+} from 'react-native';
 import {CustomTabBar} from '../components';
+import {AlanView} from '@alan-ai/alan-sdk-react-native';
+import {ALAN_AI_SDK_KEY} from '../utils/constants';
+import React, {useEffect} from 'react';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -65,6 +73,15 @@ const MainApp = () => {
   );
 };
 const Router = () => {
+  const {AlanManager, AlanEventEmitter} = NativeModules;
+  const alanEventEmitter = new NativeEventEmitter(AlanEventEmitter);
+
+  useEffect(() => {
+    alanEventEmitter.addListener('command', data => {
+      console.log(`got command event ${JSON.stringify(data)}`);
+    });
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Splash">
@@ -86,6 +103,7 @@ const Router = () => {
           options={{headerShown: false}}
         />
       </Stack.Navigator>
+      <AlanView projectid={ALAN_AI_SDK_KEY} />
     </NavigationContainer>
   );
 };

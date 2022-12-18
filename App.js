@@ -19,21 +19,11 @@ import {AlanView} from '@alan-ai/alan-sdk-react-native';
 import {ALAN_AI_SDK_KEY} from './src/utils/constants';
 
 const App: () => Node = () => {
-  const {AlanManager, AlanEventEmitter} = NativeModules;
-  const alanEventEmitter = new NativeEventEmitter(AlanEventEmitter);
-
-  useEffect(() => {
-    alanEventEmitter.addListener('command', data => {
-      console.log(`got command event ${JSON.stringify(data)}`);
-    });
-  }, []);
-
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <Router />
       </PersistGate>
-      <AlanView projectid={ALAN_AI_SDK_KEY} />
     </Provider>
   );
 };
