@@ -20,7 +20,7 @@ import {
 import {CustomTabBar} from '../components';
 import {AlanView} from '@alan-ai/alan-sdk-react-native';
 import {ALAN_AI_SDK_KEY} from '../utils/constants';
-import React, {useEffect} from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {navigationRef} from './RootNavigation';
 import * as RootNavigation from './RootNavigation';
 import {
@@ -29,7 +29,12 @@ import {
   popularFood,
 } from '../assets/data/Food.data';
 import {useDispatch, useSelector} from 'react-redux';
-import {addToCart, updateItemQuantity} from '../redux/actions/actionOrder';
+import {
+  addToCart,
+  removeFromCart,
+  updateItemQuantity,
+} from '../redux/actions/actionOrder';
+import {useState} from 'react';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -88,10 +93,10 @@ const Router = () => {
   const dispatch = useDispatch();
   const cart = useSelector(state => state.reducerOrder.cart);
 
-  const addItem = async (name, quantity) => {
+  const addItem = useCallback(async (name, quantity) => {
     const food = combineFood?.find(i => i.name == name);
+    await AlanManager.activate();
     if (food == null) {
-      await AlanManager.activate();
       AlanManager.playText(`Sorry, we cannot find ${name} on the menu`);
     } else {
       const data = {
@@ -108,9 +113,10 @@ const Router = () => {
       } else {
         await dispatch(addToCart(data));
         Alert.alert('Success', 'Item has successfully added to cart.');
+        AlanManager.playText(`Added ${quantity} ${name} on the cart`);
       }
     }
-  };
+  });
 
   useEffect(() => {
     alanEventEmitter.addListener('command', data => {

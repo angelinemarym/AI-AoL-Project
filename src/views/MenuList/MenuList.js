@@ -1,5 +1,5 @@
 import {View, Text, ScrollView, FlatList, NativeModules} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import styles from './MenuList.styles';
 import GlobalStyles from '../../utils/styles/GlobalStyles';
 import {Header, MenuListItem} from '../../components';
@@ -8,7 +8,7 @@ const MenuList = ({route, navigation}) => {
   const {data, title} = route.params;
   const {AlanManager} = NativeModules;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       // The screen is focused
       AlanManager.setVisualState({screen: 'MenuList', menu: data});
