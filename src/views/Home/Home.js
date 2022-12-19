@@ -1,5 +1,5 @@
-import {View, Text, FlatList, ScrollView} from 'react-native';
-import React from 'react';
+import {View, Text, FlatList, ScrollView, NativeModules} from 'react-native';
+import React, {useEffect} from 'react';
 import GlobalStyles from '../../utils/styles/GlobalStyles';
 import styles from './Home.styles';
 import {IconSideMenu} from '../../assets/icons';
@@ -10,6 +10,33 @@ import {fastFoodOffers, popularFood} from '../../assets/data/Food.data';
 
 const Home = ({navigation}) => {
   const [text, onChangeText] = useState('');
+  const {AlanManager} = NativeModules;
+
+  const greeting = async () => {
+    await AlanManager.activate();
+    AlanManager.playText(
+      'Welcome to Food Delivery app. Would you like to try our popular food?',
+    );
+  };
+
+  useEffect(() => {
+    greeting();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      // The screen is focused
+      AlanManager.setVisualState({
+        screen: 'Home',
+        popularMenu: popularFood,
+        fastFoodMenu: fastFoodOffers,
+      });
+    });
+
+    // Return the function to unsubscribe from the event so it gets removed on unmount
+    return unsubscribe;
+  }, [navigation]);
+
   return (
     <ScrollView
       style={GlobalStyles.wrapper}
