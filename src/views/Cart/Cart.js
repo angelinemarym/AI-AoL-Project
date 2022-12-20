@@ -74,11 +74,11 @@ const Cart = ({navigation}) => {
   }, []);
 
   const handleMakeOrder = async () => {
-    if (total > 0) {
-      setOrderSuccess(true);
-      setCurrentCart([]);
-      await dispatch(clearCart());
-    }
+    // if (total > 0) {
+    setOrderSuccess(true);
+    setCurrentCart([]);
+    await dispatch(clearCart());
+    // }
   };
 
   useEffect(() => {
