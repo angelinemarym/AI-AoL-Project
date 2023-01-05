@@ -1,4 +1,13 @@
-import {View, Text, ScrollView, Pressable, FlatList, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Pressable,
+  FlatList,
+  Alert,
+  NativeModules,
+  NativeEventEmitter,
+} from 'react-native';
 import React from 'react';
 import GlobalStyles from '../../utils/styles/GlobalStyles';
 import colors from '../../utils/colors';
@@ -8,14 +17,17 @@ import {useState} from 'react';
 import {IconCart, IconCheck} from '../../assets/icons';
 import {useDispatch, useSelector} from 'react-redux';
 import {clearCart, removeFromCart} from '../../redux/actions/actionOrder';
-import {useEffect} from 'react';
+import {useEffect, useCallback} from 'react';
+import {combineFood} from '../../assets/data/Food.data';
 
 const Cart = ({navigation}) => {
   const dispatch = useDispatch();
   const [orderSuccess, setOrderSuccess] = useState(false);
   const cart = useSelector(state => state.reducerOrder.cart);
-  const [currentCart, setCurrentCart] = useState([]);
+  const [currentCart, setCurrentCart] = useState(cart);
   const [total, setTotal] = useState(0);
+  const {AlanManager, AlanEventEmitter} = NativeModules;
+  const alanEventEmitter = new NativeEventEmitter(AlanEventEmitter);
 
   const removeItemFromCart = async id => {
     const updatedCart = currentCart.filter(item => item.id != id);
@@ -24,14 +36,49 @@ const Cart = ({navigation}) => {
     Alert.alert('Removed', 'Item has been removed from cart.');
   };
 
-  const handleMakeOrder = async () => {
-    if (total > 0) {
-      setOrderSuccess(true);
-      setCurrentCart([]);
-      await dispatch(clearCart());
+  const removeItem = useCallback(async name => {
+    const food = combineFood?.find(i => i.name == name);
+    await AlanManager.activate();
+    if (food == null) {
+      AlanManager.playText(`Sorry, we cannot find ${name} on the cart`);
     } else {
-      Alert.alert('Error', 'The cart is still empty.');
+      removeItemFromCart(food.id);
+      AlanManager.playText(`Removed ${name} from the cart`);
     }
+  });
+
+  useEffect(() => {
+    setCurrentCart(cart);
+    let currentTotal = 0;
+    cart.forEach(item => {
+      currentTotal += item.price * item.quantity;
+    });
+    setTotal(currentTotal);
+
+    // The screen is focused
+    AlanManager.setVisualState({
+      screen: 'Cart',
+      cart,
+      total: currentTotal,
+    });
+  }, [cart]);
+
+  useEffect(() => {
+    alanEventEmitter.addListener('command', data => {
+      if (data.command == 'removeFromCart') {
+        removeItem(data.payload.name);
+      } else if (data.command == 'checkout') {
+        handleMakeOrder();
+      }
+    });
+  }, []);
+
+  const handleMakeOrder = async () => {
+    // if (total > 0) {
+    setOrderSuccess(true);
+    setCurrentCart([]);
+    await dispatch(clearCart());
+    // }
   };
 
   useEffect(() => {

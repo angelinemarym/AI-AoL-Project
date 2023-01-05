@@ -29,8 +29,12 @@ const MenuItem = ({name, price, rating, image, discount}) => {
               {justifyContent: 'space-between'},
             ]}>
             <Text style={GlobalStyles.bodyText}>LKR {price}</Text>
-            <IconStar />
-            <Text style={styles.bodyText}>{rating}</Text>
+            <View style={GlobalStyles.horizontalCenter}>
+              <IconStar />
+              <Text style={[GlobalStyles.bodyText, {marginLeft: 5}]}>
+                {rating}
+              </Text>
+            </View>
           </View>
         </View>
       </View>

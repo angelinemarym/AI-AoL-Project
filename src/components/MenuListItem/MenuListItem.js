@@ -43,6 +43,15 @@ const MenuListItem = ({
     }
   }, [quantity]);
 
+  useEffect(() => {
+    const foodInCartDetail = cart?.find(i => i.id == i.id);
+    if (foodInCartDetail && name == foodInCartDetail.name) {
+      setQuantity(foodInCartDetail.quantity);
+    } else {
+      setQuantity(0);
+    }
+  }, [cart]);
+
   const handleAddToCart = async () => {
     const data = {
       id,

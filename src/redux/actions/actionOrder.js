@@ -33,3 +33,12 @@ export const updateItemQuantity = (id, quantity) => {
     },
   };
 };
+
+export const setCart = data => {
+  return {
+    type: 'SET_CART',
+    payload: {
+      data,
+    },
+  };
+};

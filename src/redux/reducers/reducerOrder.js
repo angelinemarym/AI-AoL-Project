@@ -29,6 +29,11 @@ export default reducerOrder = (state = initialState, action) => {
         ...state,
         cart: [],
       };
+    case 'SET_CART':
+      return {
+        ...state,
+        cart: [...action.payload.data],
+      };
     default:
       return {
         ...state,
